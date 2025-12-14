@@ -26,22 +26,25 @@ driver.implicitly_wait(10)
 driver.get("https://gentle-park.hellonotionhive.com/")
 driver.maximize_window()
 
-
+# Accept cookies
 wait_1 = WebDriverWait(driver, 15)
 accept_all_btn = wait_1.until(expected_conditions.visibility_of_element_located((By.XPATH, "//div/button[normalize-space()='Accept All']")))
 accept_all_btn.click()
 
+# Navigate to "Shop" page
 driver.find_element(By.LINK_TEXT, "Shop").click()
 
+# Select "Category" filter
 wait_3 = WebDriverWait(driver, 15)
 category_link = wait_3.until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[normalize-space()='Category']")))
 category_link.click()
 
+# Select "Polo Shirt Half" subcategory
 wait_4 = WebDriverWait(driver, 15)
 subcategory_link = wait_4.until(expected_conditions.visibility_of_element_located((By.XPATH, "(//span[@class='text-nowrap typo-12mc text-dark uppercase'][normalize-space()='Polo Shirt Half'])[1]")))
 subcategory_link.click()
 
-
+# Load all products by clicking "Load More" button until it disappears
 wait_2 = WebDriverWait(driver, 15)
 load_more_btn = (By.CSS_SELECTOR,"button[class='cursor-pointer bg-[#FFFFFF] !border !border-[#020617] px-[60px] py-4 text-dark typo-12sb transition-all duration-300 hover:bg-dark hover:text-white w-full sm:w-fit']")
 
@@ -56,10 +59,13 @@ while True:
         break
 time.sleep(3)
 
+# Select the product "Steel Blue Zip Polo Shirt"
 driver.find_element(By.XPATH, '//img[@alt="Steel Blue Zip Polo Shirt"]').click()
 time.sleep(2)
 
+# Grab and print all available sizes on the PDP page
 sizes = driver.find_elements(By.XPATH,"//div[@class='flex items-center gap-2 flex-wrap']/button")
 
+# Print the sizes
 for size in sizes:
     print(size.text)
